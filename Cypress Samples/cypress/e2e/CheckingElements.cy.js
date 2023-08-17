@@ -56,7 +56,7 @@ describe("Check UI Elements", () => {
     
         })
 
-        it('checking dropdown with auto suggested dropdown', () => {
+        it('Checking dropdown with auto suggested dropdown', () => {
             cy.visit("https://www.wikipedia.org/")
             cy.get("#searchInput").type('Delhi');
             cy.wait(3000);
@@ -137,12 +137,42 @@ describe("Check UI Elements", () => {
             .should('have.contain','Congratulations')
     
         })
-    
-    
-    
-    
-    
-    
-    
 
+        it('Checking handling child tabs', () => {
+            cy.visit("https://the-internet.herokuapp.com/windows")
+            cy.get('.example > a').invoke('removeAttr','target').click() // removing attr target=_blank
+            cy.url().should('include','https://the-internet.herokuapp.com/windows/new') // if child page opened
+            cy.wait(5000)
+            cy.go('back') // back to parent page
+        })
+
+        it("Checking handling iframes", () => {
+            cy.visit("https://the-internet.herokuapp.com/iframe");
+            const iframe = cy.get("#mce_0_ifr")
+            .its("0.contentDocument.body")
+            .should("be.visible")
+            .then(cy.wrap);
+        
+            iframe.clear().type("Welcome! {ctrl+a}"); // Clear window and type 'Welcome!'
+            cy.get('[aria-label="Bold"]').click(); // Mark the text bold
+          });
+
+          it('Checking mouse hover', () => {
+            cy.visit("https://demo.opencart.com/");
+            cy.get('#narbar-menu > ul > li:nth-child(1) > div > div > ul > li:nth-child(2) > a').should('not.be.visible')
+            cy.get('.nav > :nth-child(1) > .dropdown-toggle').trigger('mouseover').click();
+            cy.get('#narbar-menu > ul > li:nth-child(1) > div > div > ul > li:nth-child(2) > a').should('be.visible')
+        })
+    
+        it('Checking mouse right click', () => {
+            cy.visit("https://swisnl.github.io/jQuery-contextMenu/demo.html");
+            
+            cy.get('.context-menu-one').rightclick();
+            cy.get('.context-menu-icon-copy > span').should('be.visible');
+    
+        })
+    
+        
+    
+    
 })
