@@ -14,6 +14,10 @@ class LoginPage  {
         return $('//*[@id="root"]/section/div/div/div/form/div[3]/button[2]');
     }
 
+    get redAlert () {
+        return $('div[role="alert"]');
+    }
+
     async setUserEmail(value) {
         await this.inputEmail.setValue(value);
     }
