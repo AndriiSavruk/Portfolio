@@ -26,11 +26,6 @@ describe('Login & Logout block', () => {
         await expect(browser).toHaveUrl('https://kapusta-qa.netlify.app/transactions/expenses');
         // Check if User email is displayed in the right top corner
         await expect(KaptrnsexpensesPage.userEmail).toHaveText('tester@sample.com');
-
-        // // Logout
-        // await LoginPage.clickOnLogoutButton();
-        // await LoginPage.clickOnYesLogoutButton();
-
     });
     
 
@@ -84,6 +79,30 @@ describe('Login & Logout block', () => {
         // Check if user stays at login page
         await expect(browser).toHaveUrl('https://kapusta-qa.netlify.app/');
     })
+
+    it('Test case #4 Logout', async () => {
+        await browser.reloadSession();
+        // Preconditions
+        await browser.url('https://kapusta-qa.netlify.app/');
+        await LoginPage.login('tester@sample.com','testing11');
+        // Check if User is on the transactions/expenses page. 
+        await expect(browser).toHaveUrl('https://kapusta-qa.netlify.app/transactions/expenses');
+
+        // Step 1 Click on the "Exit" link at the top right corner
+        await KaptrnsexpensesPage.clickOnLogoutButton();
+        // Check if modal window appears
+        await expect(KaptrnsexpensesPage.exitModalContainer).toBeDisplayed();
+        // Check if modal window has text 'Do you really want to leave?'
+        await expect(KaptrnsexpensesPage.exitModalContainer).toHaveTextContaining('Do you really want to leave?');
+
+        // Step 2 - Click on the "Yes" button
+        await KaptrnsexpensesPage.clickOnYesLogoutButton();
+        // Check if user is redirected to the Login page
+        await expect(browser).toHaveUrl('https://kapusta-qa.netlify.app/');
+        // Check if "Username" and "Password" field have text "your@email.com" and "password"
+        await expect(LoginPage.inputEmail).toHaveAttribute('placeholder','your@email.com');
+        await expect(LoginPage.inputPassword).toHaveAttribute('placeholder','password');
+    })
 })
 
-// await LoginPage.login('tomsmith', 'SuperSecretPassword!')
+// 

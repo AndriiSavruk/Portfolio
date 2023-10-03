@@ -1,4 +1,3 @@
-import { $ } from '@wdio/globals'
 
 class LoginPage  {
     
@@ -18,14 +17,6 @@ class LoginPage  {
         return $('div[role="alert"]');
     }
 
-    get logoutButton () {
-        return $('.UserLogOut_logOutBtn__oTEqX')
-    }
-
-    get yesLogoutButton () {
-        return $('//*[@id="root"]/header/div/div[3]/div[2]/div/div[2]/button[1]');
-    }
-
     async setUserEmail(value) {
         await this.inputEmail.setValue(value);
     }
@@ -38,18 +29,10 @@ class LoginPage  {
         await this.btnLogIn.click();
     }
 
-    async clickOnLogoutButton() {
-        await this.logoutButton.click();
-    }
-
-    async clickOnYesLogoutButton() {
-        await this.yesLogoutButton.click();
-    }
-
     async login (email, password) {
         await this.inputEmail.setValue(email);
         await this.inputPassword.setValue(password);
-        await this.btnSignIn.click();
+        await this.btnLogIn.click();
     }
 
 }
