@@ -13,9 +13,14 @@ class LoginPage  {
         return $('//*[@id="root"]/section/div/div/div/form/div[3]/button[2]');
     }
 
+    get btnRegistr () {
+        return $('//*[@id="root"]/section/div/div/div/form/div[3]/button[1]');
+    }
+
     get redAlert () {
         return $('div[role="alert"]');
     }
+
 
     async setUserEmail(value) {
         await this.inputEmail.setValue(value);
@@ -28,6 +33,11 @@ class LoginPage  {
     async clickOnLogInButton() {
         await this.btnLogIn.click();
     }
+
+    async clickOnRegistrButton() {
+        await this.btnRegistr.click();
+    }
+
 
     async login (email, password) {
         await this.inputEmail.setValue(email);
