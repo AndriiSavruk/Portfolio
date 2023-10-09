@@ -17,6 +17,14 @@ class LoginPage  {
         return $('//*[@id="root"]/section/div/div/div/form/div[3]/button[1]');
     }
 
+    get inputWarning () {
+        return $('//*[@id="root"]/section/div/div/div/form/div[1]/p');
+    }
+
+    get passwordWarning () {
+        return $('//*[@id="root"]/section/div/div/div/form/div[2]/p')
+    }
+
     get redAlert () {
         return $('div[role="alert"]');
     }

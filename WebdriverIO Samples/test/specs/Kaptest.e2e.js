@@ -106,7 +106,7 @@ describe.skip('Login & Logout block', () => {
     })
 })
 
-describe('Registration block', () => {
+describe.only('Registration block', () => {
 
     it('Test case #5 Registration with valid data', async () => {
         await browser.reloadSession();
@@ -153,7 +153,7 @@ describe('Registration block', () => {
         await expect(KaptrnsexpensesPage.userEmail).toHaveText(randomEmail);
     })
 
-    it.only('Test case #6 Registration with invalid login', async () => {
+    it('Test case #6 Registration with invalid login', async () => {
         await browser.reloadSession();
         // Preconditions
         await browser.url('https://kapusta-qa.netlify.app/');
@@ -163,9 +163,12 @@ describe('Registration block', () => {
         await LoginPage.setUserEmail(invalidLogin);
         // Check if data is entered to the field
         await expect(LoginPage.inputEmail).toHaveValue(invalidLogin);
-        // Click on the form besides the field
-      
-        // Check if red warning appears
+        // Leaving the field
+         await LoginPage.inputPassword.click();
+         await browser.pause(2000);
+        // Check if red warning appears and has text 'Invalid email'
+        await expect(LoginPage.inputWarning).toBeDisplayed();
+        await expect(LoginPage.inputWarning).toHaveText('Invalid email');
 
         // Step 2 Enter valid password into "Password" field
         const randomPassword = Math.random().toString(5).substring(2);
@@ -175,7 +178,43 @@ describe('Registration block', () => {
         // Check if data is reprresented as dots instead of characters
         await expect(LoginPage.inputPassword).toHaveAttribute('type', 'password');
 
-        // Click "Registration" button
+        // Step 3 Click on the "Registration" button
+        await LoginPage.clickOnRegistrButton();
+        // Check if user is still on the login page
+        await expect(browser).toHaveUrl('https://kapusta-qa.netlify.app/');
+    })
+
+    it('Test case #7 Registration with invalid password', async () => {
+        await browser.reloadSession();
+        // Preconditions
+        await browser.url('https://kapusta-qa.netlify.app/');
+
+        // Step 1 Enter valid login into Email field
+        const randomEmail = Math.random().toString(5).substring(2)+"@gmail.com";
+        await LoginPage.setUserEmail(randomEmail);
+        // Check if data is entered to the field
+        await expect(LoginPage.inputEmail).toHaveValue(randomEmail);
+
+        // Step 2 Enter invalid password into the "Password" field
+        const invalidPassword = 'abc';
+        await LoginPage.setUserPassword(invalidPassword);
+        // Check if data is entered to the field
+        await expect(LoginPage.inputPassword).toHaveValue(invalidPassword);
+        // Check if data is reprresented as dots instead of characters
+        await expect(LoginPage.inputPassword).toHaveAttribute('type', 'password');
+        // Leaving the field
+        await LoginPage.inputEmail.click();
+        await browser.pause(2000);
+        // Check if red warning appears and has text 'Min length 7'
+        await expect(LoginPage.passwordWarning).toBeDisplayed();
+        await expect(LoginPage.passwordWarning).toHaveText('Min length 7');
+
+        // Step 3 Click on the "Registration" button
+        await LoginPage.clickOnRegistrButton();
+        // Check if user is still on the login page
+        await expect(browser).toHaveUrl('https://kapusta-qa.netlify.app/');
+
+
     })
 })
 
