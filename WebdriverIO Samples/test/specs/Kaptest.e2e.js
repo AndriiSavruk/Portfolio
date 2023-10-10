@@ -106,7 +106,7 @@ describe.skip('Login & Logout block', () => {
     })
 })
 
-describe.only('Registration block', () => {
+describe.skip('Registration block', () => {
 
     it('Test case #5 Registration with valid data', async () => {
         await browser.reloadSession();
@@ -213,8 +213,45 @@ describe.only('Registration block', () => {
         await LoginPage.clickOnRegistrButton();
         // Check if user is still on the login page
         await expect(browser).toHaveUrl('https://kapusta-qa.netlify.app/');
+    })
 
+    it('Test case #8 Registration with empty form', async () => {
+        await browser.reloadSession();
+        // Preconditions
+        await browser.url('https://kapusta-qa.netlify.app/');
 
+        // Step 1 Click on the "Registration" button
+        await LoginPage.clickOnRegistrButton();
+        await browser.pause(2000);
+        // Check if user is still on the login page
+        await expect(browser).toHaveUrl('https://kapusta-qa.netlify.app/');
+        // Check if red asterisk near the "Email" string appears
+        await expect(LoginPage.emailRedAsterisk).toBeDisplayed();
+        // Check if red asterisk near the "Password" string appears
+        await expect(LoginPage.passwordRedAsterisk).toBeDisplayed();
+        // Check if red warning under the login field appears and has text "This is a required field"
+        await expect(LoginPage.emailRedWarning).toBeDisplayed();
+        await expect(LoginPage.emailRedWarning).toHaveText('This is a required field');
+        // Check if red warning under the login field appears and has text "This is a required field"
+        await expect(LoginPage.passwordRedWarning).toBeDisplayed();
+        await expect(LoginPage.passwordRedWarning).toHaveText('This is a required field');
+    })
+})
+
+describe('Operations block', () => {
+
+    it('Test case #9 Insert expense operation', async () => {
+        await browser.reloadSession();
+        // Preconditions
+        await browser.url('https://kapusta-qa.netlify.app/');
+        await LoginPage.login('tester@sample.com','testing11');
+        // Check if User is on the transactions/expenses page. 
+        await expect(browser).toHaveUrl('https://kapusta-qa.netlify.app/transactions/expenses');
+
+        // Step 1 Enter the product description
+        await KaptrnsexpensesPage.productDescriptionField.setValue('Some potato');
+        // Check if data is entered to the field
+        await expect(KaptrnsexpensesPage.productDescriptionField).toHaveValue('Some potato');
     })
 })
 

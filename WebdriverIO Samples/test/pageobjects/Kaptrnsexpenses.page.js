@@ -12,7 +12,10 @@ class TrnsexpensesPage {
         return $('//*[@id="root"]/header/div/div[3]/div[2]/div/div[2]/button[1]');
     }
 
-    get exitModalContainer () {return $('//*[@id="root"]/header/div/div[3]/div[2]/div')}
+    get exitModalContainer () {return $('//*[@id="root"]/header/div/div[3]/div[2]/div');}
+    get productDescriptionField () {return $('input[name="description"]');}
+    get productCategoryField () {return $('#react-select-4-input');}
+    get productSumField () {return $('input[name="amount"]');}
     async clickOnLogoutButton() {
         await this.logoutButton.click();
     }

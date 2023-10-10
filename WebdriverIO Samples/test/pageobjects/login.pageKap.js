@@ -29,6 +29,21 @@ class LoginPage  {
         return $('div[role="alert"]');
     }
 
+    get emailRedAsterisk () {
+        return $('//*[@id="root"]/section/div/div/div/form/div[1]/label/span');
+    }
+
+    get passwordRedAsterisk () {
+        return $('//*[@id="root"]/section/div/div/div/form/div[2]/label/span');
+    }
+
+    get emailRedWarning () {
+        return $('//*[@id="root"]/section/div/div/div/form/div[1]/p');
+    }
+
+    get passwordRedWarning () {
+        return $('//*[@id="root"]/section/div/div/div/form/div[2]/p');
+    }
 
     async setUserEmail(value) {
         await this.inputEmail.setValue(value);
