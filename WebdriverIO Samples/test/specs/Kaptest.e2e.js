@@ -252,6 +252,25 @@ describe('Operations block', () => {
         await KaptrnsexpensesPage.productDescriptionField.setValue('Some potato');
         // Check if data is entered to the field
         await expect(KaptrnsexpensesPage.productDescriptionField).toHaveValue('Some potato');
+
+        // Step 2 Choose the category
+        await KaptrnsexpensesPage.productCategoryBtn.click();
+        await KaptrnsexpensesPage.productCategoryProductsChoose.click();
+        await browser.pause(2000);
+        // Check if data is entered to the field
+        await expect(KaptrnsexpensesPage.productCategoryField).toHaveText('Products');
+
+        // Step 3 Enter sum of money
+        await KaptrnsexpensesPage.productSumField.setValue('50');
+        // Check if data is entered to the field
+        await expect(KaptrnsexpensesPage.productSumField).toHaveValue('50');
+
+        // Step 4 Click on 'Input' button
+        await KaptrnsexpensesPage.clickOnInputButton();
+        await browser.pause(2000);
+        // Check if the operation is added to the table
+        await expect(KaptrnsexpensesPage.expensesTable).toHaveTextContaining('Some potato');
+
     })
 })
 

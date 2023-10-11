@@ -14,14 +14,22 @@ class TrnsexpensesPage {
 
     get exitModalContainer () {return $('//*[@id="root"]/header/div/div[3]/div[2]/div');}
     get productDescriptionField () {return $('input[name="description"]');}
-    get productCategoryField () {return $('#react-select-4-input');}
+    get productCategoryBtn () {return $('.css-tlfecz-indicatorContainer')}
+    get productCategoryProductsChoose () {return $('#react-select-2-option-1')}
+    get productCategoryField () {return $('.css-aep54n-singleValue');}
     get productSumField () {return $('input[name="amount"]');}
+    get inputButton () {return $('.FormTransaction_buttonInput__Fqdxq');}
+    get expensesTable () {return $('.ExpensesComponent_transactions__GBp52')}
     async clickOnLogoutButton() {
         await this.logoutButton.click();
     }
 
     async clickOnYesLogoutButton() {
         await this.yesLogoutButton.click();
+    }
+
+    async clickOnInputButton() {
+        await this.inputButton.click();
     }
 
 }
