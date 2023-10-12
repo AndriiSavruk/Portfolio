@@ -13,6 +13,8 @@ class TrnsexpensesPage {
     }
 
     get exitModalContainer () {return $('//*[@id="root"]/header/div/div[3]/div[2]/div');}
+    get dateField () {return $('//*[@id="root"]/section/div/div/div/div[3]/form/label[1]/div/div/input');}
+    get balanceField () {return $('//*[@id="root"]/section/div/div/div/div[1]/form/div/label/input');}
     get productDescriptionField () {return $('input[name="description"]');}
     get productCategoryBtn () {return $('.css-tlfecz-indicatorContainer')}
     get productCategoryProductsChoose () {return $('#react-select-2-option-1')}

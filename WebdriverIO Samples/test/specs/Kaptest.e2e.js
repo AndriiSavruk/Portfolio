@@ -248,6 +248,11 @@ describe('Operations block', () => {
         // Check if User is on the transactions/expenses page. 
         await expect(browser).toHaveUrl('https://kapusta-qa.netlify.app/transactions/expenses');
 
+        // Save current date
+        const currentDate = await KaptrnsexpensesPage.dateField.getValue();
+        // Save current balance
+        const startBalance = Number(await KaptrnsexpensesPage.balanceField.getValue());
+
         // Step 1 Enter the product description
         await KaptrnsexpensesPage.productDescriptionField.setValue('Some potato');
         // Check if data is entered to the field
@@ -270,6 +275,13 @@ describe('Operations block', () => {
         await browser.pause(2000);
         // Check if the operation is added to the table
         await expect(KaptrnsexpensesPage.expensesTable).toHaveTextContaining('Some potato');
+        await expect(KaptrnsexpensesPage.expensesTable).toHaveTextContaining(currentDate);
+        // Check if the fields are empty
+        await expect(KaptrnsexpensesPage.productDescriptionField).toHaveValue('');
+        await expect(KaptrnsexpensesPage.productSumField).toHaveValue('');
+        // Check if the balance decreased on the sum of the operation
+        const newBalance = (startBalance -50).toString();
+        await expect(KaptrnsexpensesPage.balanceField).toHaveValue(newBalance+".00");
 
     })
 })
